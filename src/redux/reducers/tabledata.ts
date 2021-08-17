@@ -14,7 +14,7 @@ export interface IData {
 
 const initialState: IData = {
   items: [],
-  isLoading: true,
+  isLoading: false,
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
