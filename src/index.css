@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.css-1zts0j {
+  font-weight: 800 !important;
+}
+
+.css-1ehs90v:hover svg:first-child{
+  opacity: 0;
+  transition: all cubic-bezier(0.4, 1, 0.9, 0.6) 0.3s;
+}
+
+.css-k008qs > button {
+  min-width: 30px;
+}
