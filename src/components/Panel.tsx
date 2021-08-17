@@ -7,13 +7,13 @@ const Panel = () => {
         <Box w="100%">
             <Flex p={3}>
                 <HStack>
-                    <Select placeholder="Status">
+                    <Select placeholder="Status" borderColor="purple.500">
                         <option value="pending">Pending</option>
                         <option value="completed">Completed</option>
                         <option value="cancelled">Cancelled</option>
                     </Select>
                     <Spacer />
-                    <Select placeholder="Type">
+                    <Select placeholder="Type" borderColor="purple.500">
                         <option value="refill">Refill</option>
                         <option value="withdrawal">Withdrawal</option>
                     </Select>
