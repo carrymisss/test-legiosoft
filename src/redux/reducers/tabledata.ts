@@ -1,15 +1,24 @@
-interface IDataState {
-  items: any[],
+export interface IDataItemsElement {
+  status: 'payment' | 'invoice' | 'withdrawal' | 'deposit',
+  type: 'payment' | 'invoice' | 'withdrawal' | 'deposit',
+  clientName: string,
+  amount: number,
+  transactionId: number
+}
+
+export interface IData {
+  items: IDataItemsElement[],
   isLoading: boolean
 }
 
-const initialState: IDataState = {
+
+const initialState: IData = {
   items: [],
-  isLoading: false,
+  isLoading: true,
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (state: IDataState = initialState, { type, payload }: any): IDataState => {
+export default (state: IData = initialState, { type, payload }: {type: string, payload: (IDataItemsElement[] | any)}): IData => {
   switch (type) {
     case 'SET_ITEMS':
       return {
