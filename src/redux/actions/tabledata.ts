@@ -1,7 +1,7 @@
-import { IMockData } from "../sagas/tabledata"
+import { IDataItemsElement } from '../reducers/tabledata'
 
 interface IActions {
-  setTabledata: (T: IMockData[]) => {
+  setTabledata: (T: IDataItemsElement[]) => {
     type: string,
     payload: typeof T
   },
