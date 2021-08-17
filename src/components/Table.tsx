@@ -30,7 +30,7 @@ const DataTable = () => {
     const { currentPage, setCurrentPage, pagesQuantity, offset, pageSize } = usePaginator({
         total: items.length,
         initialState: {
-            currentPage: 1 ,
+            currentPage: 1,
             pageSize: 15
         } 
     })
