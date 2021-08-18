@@ -21,7 +21,7 @@ const App = () => {
         <Table />
       </VStack>
     </Container>
-  )
+  ) 
 }
 
 export default App
