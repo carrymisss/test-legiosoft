@@ -1,4 +1,4 @@
-import { IDataItemsElement } from '../reducers/tabledata'
+import { IDataItemsElement, ISortOptions, TStatus, TType } from '../reducers/tabledata'
 
 interface IActions {
   setTabledata: (T: IDataItemsElement[]) => {
@@ -11,6 +11,10 @@ interface IActions {
   setLoading: (B: boolean) => {
     type: string,
     payload: typeof B
+  }
+  sortData: (status: TStatus, type: TType) => {
+    type: string,
+    payload: ISortOptions
   }
 }
 
@@ -25,6 +29,10 @@ const Actions: IActions = {
   setLoading: status => ({
     type: 'SET_LOADING',
     payload: status
+  }),
+  sortData: (status, type) => ({
+    type: 'SORT_DATA',
+    payload: { status, type }
   })
   // addMessage: message => (dispatch, getState) => {
   //   const { dialogs } = getState()
