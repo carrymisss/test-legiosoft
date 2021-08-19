@@ -1,48 +1,38 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { ChangeEvent, RefObject } from 'react'
 import { Box, Button, Spacer, HStack, Flex, Select } from '@chakra-ui/react'
-import Actions from '../redux/actions/tabledata'
-import { TStatus, TType } from '../redux/reducers/tabledata'
 
 
-const Panel = () => { 
-    const [status, setStatus] = useState<TStatus>('')
-    const [type, setType] = useState<TType>('')
-    const dispatch = useDispatch()
+interface IProps {
+    handleChangeStatus: (e: ChangeEvent<HTMLSelectElement>) => void,
+    handleChangeType: (e: ChangeEvent<HTMLSelectElement>) => void,
+    handleUploadFile: (e: ChangeEvent<HTMLInputElement>) => void,
+    handleImportFile: () => void,
+    inputRef: RefObject<HTMLInputElement>,
+    disabled: boolean
+}
 
-    useEffect(() => {
-        dispatch(Actions.sortData(status, type))
-    }, [status, type])
-
-    const handleChangeStatus = (e: ChangeEvent<HTMLSelectElement>): void => {
-        setStatus(e.target.value as TStatus)
-    }
-
-    const handleChangeType = (e: ChangeEvent<HTMLSelectElement>): void => {
-        setType(e.target.value as TType)
-    }
-
+const Panel = ({ handleChangeStatus, handleChangeType, handleUploadFile, handleImportFile, inputRef, disabled }: IProps) => {
     return (
         <Box w="100%">            
             <Flex p={3}>
                 <HStack>
-                    <Select onChange={handleChangeStatus} placeholder="Status" borderColor="purple.500">
+                    <Select disabled={disabled} onChange={handleChangeStatus} placeholder="Status" borderColor="purple.500">
                         <option value="pending">Pending</option>
                         <option value="completed">Completed</option>
                         <option value="cancelled">Cancelled</option>
                     </Select>
                     <Spacer />
-                    <Select onChange={handleChangeType} placeholder="Type" borderColor="purple.500">
+                    <Select disabled={disabled} onChange={handleChangeType} placeholder="Type" borderColor="purple.500">
                         <option value="refill">Refill</option>
                         <option value="withdrawal">Withdrawal</option>
                     </Select>
                 </HStack>
                 <Spacer />
-                <HStack>
-                    
-                    <Button colorScheme="purple" variant="solid">Import</Button>
+                <HStack>    
+                    <input ref={inputRef} onChange={handleUploadFile} id="importBtn" type="file" accept=".csv" style={{ display: 'none' }} />
+                    <Button onClick={handleImportFile} colorScheme="purple" variant="solid">Import</Button>
                     <Spacer />
-                    <Button colorScheme="purple" variant="outline">Export</Button>
+                    <Button disabled={disabled} colorScheme="purple" variant="outline">Export</Button>
                 </HStack>
             </Flex>
         </Box>
