@@ -15,6 +15,14 @@ interface IActions {
   sortData: (status: TStatus, type: TType) => {
     type: string,
     payload: ISortOptions
+  },
+  updateTransactionStatus: (newStatus: TStatus, id: number) => {
+    type: string,
+    payload: { newStatus: TStatus, id: number }
+  },
+  deleteTransaction: (id: number) => {
+    type: string,
+    payload: typeof id
   }
 }
 
@@ -33,6 +41,14 @@ const Actions: IActions = {
   sortData: (status, type) => ({
     type: 'SORT_DATA',
     payload: { status, type }
+  }),
+  updateTransactionStatus: (newStatus, id) => ({
+    type: 'UPDATE_STATUS',
+    payload: { newStatus, id }
+  }),
+  deleteTransaction: id => ({
+    type: 'DELETE_TRANSACTION',
+    payload: id
   })
   // addMessage: message => (dispatch, getState) => {
   //   const { dialogs } = getState()
