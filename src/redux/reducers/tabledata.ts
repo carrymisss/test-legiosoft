@@ -14,7 +14,7 @@ export interface IDataItemsElement extends ISortOptions {
 
 export interface IData {
     items: IDataItemsElement[],
-        isLoading: boolean
+    isLoading: boolean
 }
 
 
@@ -40,22 +40,44 @@ export default (state: IData = initialState, { type, payload }: { type: string, 
             return {
                 ...state,
                 // eslint-disable-next-line array-callback-return
-                items: state.items.sort((a, b): any => {
+                items: state.items.sort((a: IDataItemsElement, b: IDataItemsElement): any => {
                     if (!payload.status && !payload.type) {
                         return a.transactionId - b.transactionId
                     }
-                    if (a.status === payload.status && !payload.type) {
+                    if (a.status.toLowerCase() === payload.status && !payload.type) {
                         return -1
                     } 
-                    if (a.type === payload.type && !payload.status) {
+                    if (a.type.toLowerCase() === payload.type && !payload.status) {
                         return -1
                     }
                     if (payload.status && payload.type) {
-                        if (a.status === payload.status && a.type === payload.type) {
+                        if (a.status.toLowerCase() === payload.status && a.type.toLowerCase() === payload.type) {
                             return -1
                         }
                     }
                 })
+            }
+        case 'UPDATE_STATUS':
+            return {
+                ...state,
+                items: state.items.map((el: IDataItemsElement): IDataItemsElement => {
+                    if (el.transactionId === payload.id) {
+                        el.status = payload.newStatus
+                        return el
+                    } else {
+                        return el
+                    }
+                })
+            }
+        case 'DELETE_TRANSACTION':
+            // eslint-disable-next-line array-callback-return
+            const idx: number = state.items.findIndex((el: IDataItemsElement): IDataItemsElement | undefined => {
+                if (el.transactionId === payload) return el
+            })
+            state.items.splice(idx, 1)
+
+            return {
+                ...state,
             }
         default: return state
     }
