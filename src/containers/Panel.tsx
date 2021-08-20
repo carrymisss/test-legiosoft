@@ -93,7 +93,22 @@ const PanelComponent = () => {
     const handleExport = () => {
         const csvContent: string[] = []
         csvContent.push('TransactionId,Status,Type,ClientName,Amount')
-        items.forEach((el: IDataItemsElement) => {
+        // eslint-disable-next-line array-callback-return
+        items.filter((el: IDataItemsElement) => {
+            if (status && type) {
+                if (el.status.toLocaleLowerCase() === status && el.type.toLocaleLowerCase() === type) {
+                    return el
+                }
+            } else if (status) {
+                if (el.status.toLocaleLowerCase() === status) {
+                    return el
+                }
+            } else if (type) {
+                if (el.type.toLocaleLowerCase() === type) {
+                    return el
+                }
+            } else return el
+        }).forEach((el: IDataItemsElement) => {
             csvContent.push(Object.values(el).join(','))
         })
         const encodedUri: string = encodeURI("data:text/csv;charset=utf-8," + csvContent.join('\n'))
