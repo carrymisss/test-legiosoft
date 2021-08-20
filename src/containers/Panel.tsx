@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { ChangeEvent } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useToast } from '@chakra-ui/react'
 import Panel from '../components/Panel'
 import Actions from '../redux/actions/tabledata'
-import { IDataItemsElement, TStatus, TType } from '../redux/reducers/tabledata'
+import { IData, IDataItemsElement, TStatus, TType } from '../redux/reducers/tabledata'
 
 
 const PanelComponent = () => {
@@ -12,6 +12,8 @@ const PanelComponent = () => {
     const [type, setType] = useState<TType>('')
     const [disabled, setDisabled] = useState<boolean>(true)
     const inputRef = useRef<HTMLInputElement>(null)
+    const exportRef = useRef<HTMLAnchorElement>(null)
+    const items: IDataItemsElement[] = useSelector((state: IData) => state.items)
     const dispatch = useDispatch()
     const toast = useToast()
 
@@ -37,6 +39,7 @@ const PanelComponent = () => {
     
     const handleUploadFile = (e: ChangeEvent<HTMLInputElement>): void => {
         if (e.target.files?.length) {
+            if (exportRef.current) exportRef.current.href = ''
             try {
                 getText(e.target.files?.[0], fileData => {
                     if (fileData) {
@@ -83,15 +86,29 @@ const PanelComponent = () => {
         }    
     }
 
-    const handleImportFile = (): void => {
+    const handleImport = (): void => {
         inputRef.current?.click()
+    }
+
+    const handleExport = () => {
+        const csvContent: string[] = []
+        csvContent.push('TransactionId,Status,Type,ClientName,Amount')
+        items.forEach((el: IDataItemsElement) => {
+            csvContent.push(Object.values(el).join(','))
+        })
+        const encodedUri: string = encodeURI("data:text/csv;charset=utf-8," + csvContent.join('\n'))
+        exportRef.current?.setAttribute('download', 'newData')
+        if (exportRef.current) exportRef.current.href = encodedUri
+        exportRef.current?.click()
     }
 
     return (
         <Panel
+            exportRef={exportRef}
             disabled={disabled}
             inputRef={inputRef}
-            handleImportFile={handleImportFile}
+            handleExport={handleExport}
+            handleImport={handleImport}
             handleUploadFile={handleUploadFile}
             handleChangeType={handleChangeType}
             handleChangeStatus={handleChangeStatus}

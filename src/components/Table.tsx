@@ -149,13 +149,13 @@ const DataTable = ({
                 </ModalContent>
             </Modal>
 
-            <Modal size={'xs'} isOpen={isDeleteOpen} onClose={onDeleteClose}>
+            <Modal isOpen={isDeleteOpen} onClose={onDeleteClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Delete transaction</ModalHeader>
                     <ModalBody>Are you sure? You can't undo this action afterwards.</ModalBody>
                     <ModalCloseButton />
-                    <ModalFooter justifyContent="center">
+                    <ModalFooter>
                         <Button colorScheme="purple" variant="outline" mr={3} onClick={onDeleteClose}>Cancel</Button>
                         <Button onClick={handleDelete} colorScheme="red" >Delete</Button>
                     </ModalFooter>
