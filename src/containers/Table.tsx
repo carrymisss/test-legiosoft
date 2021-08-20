@@ -26,8 +26,8 @@ const TableComponent = () => {
 
     const handleEditModalPrepare = (id: number): void => {
         setElId(id)
-        setPrevRadioValue(items.find((el: IDataItemsElement) => { return el.transactionId === id }).status)
-        setRadioValue(items.find((el: IDataItemsElement) => { return el.transactionId === id }).status)
+        setPrevRadioValue(items.find((el: IDataItemsElement) => { return el.transactionId === id }).status.toLowerCase())
+        setRadioValue(items.find((el: IDataItemsElement) => { return el.transactionId === id }).status.toLowerCase())
         onEditOpen()
     }
 
@@ -72,10 +72,8 @@ const TableComponent = () => {
             handleEditModalPrepare={handleEditModalPrepare}
             handleDeleteModalPrepare={handleDeleteModalPrepare}
             isEditOpen={isEditOpen}
-            onEditOpen={onEditOpen}
             onEditClose={onEditClose}
             isDeleteOpen={isDeleteOpen}
-            onDeleteOpen={onDeleteOpen}
             onDeleteClose={onDeleteClose}
             handleRadioChange={handleRadioChange}
             radioValue={radioValue}

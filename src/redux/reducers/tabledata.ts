@@ -62,7 +62,7 @@ export default (state: IData = initialState, { type, payload }: { type: string, 
                 ...state,
                 items: state.items.map((el: IDataItemsElement): IDataItemsElement => {
                     if (el.transactionId === payload.id) {
-                        el.status = payload.newStatus
+                        el.status = payload.newStatus.charAt(0).toUpperCase() + payload.newStatus.slice(1)
                         return el
                     } else {
                         return el
