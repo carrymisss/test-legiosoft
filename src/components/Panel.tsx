@@ -6,12 +6,12 @@ interface IProps {
     handleChangeStatus: (e: ChangeEvent<HTMLSelectElement>) => void,
     handleChangeType: (e: ChangeEvent<HTMLSelectElement>) => void,
     handleUploadFile: (e: ChangeEvent<HTMLInputElement>) => void,
-    handleImportFile: () => void,
+    handleImport: () => void,
     inputRef: RefObject<HTMLInputElement>,
     disabled: boolean
 }
 
-const Panel = ({ handleChangeStatus, handleChangeType, handleUploadFile, handleImportFile, inputRef, disabled }: IProps) => {
+const Panel = ({ handleChangeStatus, handleChangeType, handleUploadFile, handleImport, inputRef, disabled }: IProps) => {
     return (
         <Box w="100%">            
             <Flex p={3}>
@@ -30,7 +30,7 @@ const Panel = ({ handleChangeStatus, handleChangeType, handleUploadFile, handleI
                 <Spacer />
                 <HStack>    
                     <input ref={inputRef} onChange={handleUploadFile} id="importBtn" type="file" accept=".csv" style={{ display: 'none' }} />
-                    <Button onClick={handleImportFile} colorScheme="purple" variant="solid">Import</Button>
+                    <Button onClick={handleImport} colorScheme="purple" variant="solid">Import</Button>
                     <Spacer />
                     <Button disabled={disabled} colorScheme="purple" variant="outline">Export</Button>
                 </HStack>
